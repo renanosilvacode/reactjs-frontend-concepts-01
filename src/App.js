@@ -26,11 +26,19 @@ import api from './services/api.js';
         })
     },[])
 
-    function handleAddProject(){
+    async function handleAddProject(){
         //... = spreadOperator
         //Changing the variable projects by copying projects and adding a new item by the end of it
-        setProjects([ ...projects, `New Project ${Date.now()}`]);
+        //setProjects([ ...projects, `New Project ${Date.now()}`]);
 
+        const response = await api.post('projects', {
+            title: `New Project ${Date.now()}`,
+            owner: 'Renan Silva'
+        });
+
+        const project = response.data;
+
+        setProjects([...projects, project]);
     }
 
     return (
